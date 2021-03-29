@@ -64,8 +64,7 @@ jobs:
             # Destination path
             path: artifact
         - name: Display structure of downloaded files
-          run: ls -R
-          working-directory: artifact
+          run: ls
         - name: Install dependencies
           run: cd artifact/functions && npm i
         - name: Set the project firebase configuration
