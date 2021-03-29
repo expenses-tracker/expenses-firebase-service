@@ -37,6 +37,14 @@ jobs:
       # Build
       - name: Build
         run: cd functions && npm run build
+        
+      # Upload build artifacts
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.2
+        with:
+          # A file, directory or wildcard pattern that describes what to upload
+          path: functions/lib/
+          if-no-files-found: error
       
           
   # This workflow contains a single job called "build"
@@ -46,6 +54,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+        - name: Download a Build Artifact
+          uses: actions/download-artifact@v2.0.8
+          with:
+            # Destination path
+            path: artifact
         - name: Set the project firebase configuration
           uses: w9jds/firebase-action@v2.0.0
           with:
