@@ -65,9 +65,9 @@ jobs:
             path: artifact
         - name: Display structure of downloaded files
           run: ls -R
-          working-directory: artifact/functions
+          working-directory: artifact
         - name: Install dependencies
-          run: npm i
+          run: cd functions && npm i
         - name: Set the project firebase configuration
           uses: w9jds/firebase-action@v2.0.0
           with:
