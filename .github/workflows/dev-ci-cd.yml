@@ -42,6 +42,7 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.2
         with:
+          name: dist
           # A file, directory or wildcard pattern that describes what to upload
           path: |
             **/*
@@ -64,7 +65,7 @@ jobs:
           uses: actions/download-artifact@v2.0.8
           with:
             # Destination path
-            path: artifact/functions
+            name: dist
         # - name: Change working directory
         #   run: cd artifact
         # - name: Display structure of downloaded files
