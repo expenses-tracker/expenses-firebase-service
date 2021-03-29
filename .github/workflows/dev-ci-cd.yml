@@ -46,8 +46,8 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-        - name: Install firebase tools
-          run: npm i -g firebase-tools
+        - name: GitHub Action for Firebase
+          uses: w9jds/firebase-action@v2.0.0
         - name: Use a firebase dev project
           run: firebase use --token "${{ secrets.FIREBASE_TOKEN }}" --project "expense-sheets-dev"
         - name: Set firebase configuration
