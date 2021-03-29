@@ -56,9 +56,9 @@ jobs:
     needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: functions
+#     defaults:
+#       run:
+#         working-directory: functions
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -70,11 +70,12 @@ jobs:
             # Destination path
             name: dist
         - name: Install dependencies
-          run: npm install
+          run: cd functions && npm install
         - name: Set the project firebase configuration
           uses: w9jds/firebase-action@v2.0.0
           with:
             args: functions:config:set expenseservice.environment=dev --project "expense-sheets-dev"
+            working-directory: functions
           env:
             FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
             TARGET: dev
@@ -82,6 +83,7 @@ jobs:
           uses: w9jds/firebase-action@v2.0.0
           with:
             args: deploy --project "expense-sheets-dev"
+            working-directory: functions
           env:
             FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
             TARGET: dev
