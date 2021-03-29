@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "expense-sheets-dev",
+    "dev": "expense-sheets-dev",
+    "prod": "com-varnit-expense-sheet"
+  }
+}
