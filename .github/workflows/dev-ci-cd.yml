@@ -46,13 +46,17 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-        - name: GitHub Action for Firebase
+        - name: Set the project firebase configuration
           uses: w9jds/firebase-action@v2.0.0
+          with:
+            args: functions:config:set expenseservice.environment=dev
           env:
             FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        - name: Use a firebase dev project
-          run: firebase use --token "${{ secrets.FIREBASE_TOKEN }}" --project "expense-sheets-dev"
-        - name: Set firebase configuration
-          run: firebase functions:config:set expenseservice.environment=dev  --token "${{ secrets.FIREBASE_TOKEN }}" --project "expense-sheets-dev"
+            TARGET: dev
         - name: Deploy the build
-          run: firebase deploy --token "${{ secrets.FIREBASE_TOKEN }}" --project "expense-sheets-dev"
+          uses: w9jds/firebase-action@v2.0.0
+          with:
+            args: deploy
+          env:
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+            TARGET: dev
