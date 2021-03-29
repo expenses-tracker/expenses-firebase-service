@@ -42,7 +42,7 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.2
         with:
-          name: dist
+#           name: dist
           # A file, directory or wildcard pattern that describes what to upload
           path: |
             **/*
@@ -66,14 +66,14 @@ jobs:
 #           uses: actions/checkout@master
         - name: Download a Build Artifact
           uses: actions/download-artifact@v2.0.8
-          with:
-            # Destination path
-            name: dist
-            path: dist
+#           with:
+#             # Destination path
+#             name: dist
+#             path: dist
         - name: Display structure of downloaded files
           run: ls -R
-        - name: Install dependencies
-          run: cd functions && npm install
+#         - name: Install dependencies
+#           run: cd functions && npm install
         - name: Set the project firebase configuration
           uses: w9jds/firebase-action@v2.0.0
           with:
