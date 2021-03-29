@@ -63,9 +63,8 @@ jobs:
           with:
             # Destination path
             path: artifact
-        - name: Display structure of downloaded files
-          run: ls -R
-          working-directory: artifact
+        - name: Change to functions directory
+          run: cd functions
         - name: Set the project firebase configuration
           uses: w9jds/firebase-action@v2.0.0
           with:
