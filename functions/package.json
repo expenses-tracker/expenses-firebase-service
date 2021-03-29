@@ -2,7 +2,8 @@
   "name": "functions",
   "scripts": {
     "lint": "tslint --project tsconfig.json",
-    "build": "tsc",
+    "build": "rimraf -rf lib && tsc && npm run copy",
+    "copy": "cp package.json lib/ && cp ../.firebaserc lib/ && cp ../firebase.json lib/",
     "serve:watch": "nodemon -e ts --exec \"npm run serve:dev\"",
     "serve:dev": "npm run build && firebase emulators:start --only functions",
     "serve": "npm run build && firebase emulators:start --only functions",
