@@ -74,14 +74,14 @@ jobs:
         - name: Set the project firebase configuration
           uses: w9jds/firebase-action@v2.0.0
           with:
-            args: functions:config:set expenseservice.environment=dev --project "expense-sheets-dev" --manifest-path functions
+            args: functions:config:set expenseservice.environment=dev --project "expense-sheets-dev"
           env:
             FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
             TARGET: dev
         - name: Deploy the build
           uses: w9jds/firebase-action@v2.0.0
           with:
-            args: deploy --project "expense-sheets-dev" --manifest-path functions
+            args: deploy --project "expense-sheets-dev"
           env:
             FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
             TARGET: dev
