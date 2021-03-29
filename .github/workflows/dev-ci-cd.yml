@@ -62,17 +62,17 @@ jobs:
           uses: actions/download-artifact@v2.0.8
           with:
             # Destination path
-            path: artifact
-        - name: Change working directory
-          run: cd artifact
-        - name: Display structure of downloaded files
-          run: ls
-        - name: Change working directory
-          run: cd artifact
-        - name: Display structure of downloaded files
-          run: ls
-        - name: Install dependencies
-          run: cd functions && npm install
+            path: artifact/functions
+        # - name: Change working directory
+        #   run: cd artifact
+        # - name: Display structure of downloaded files
+        #   run: ls
+        # - name: Change working directory
+        #   run: cd artifact
+        # - name: Display structure of downloaded files
+        #   run: ls
+        # - name: Install dependencies
+        #   run: cd functions && npm install
         - name: Set the project firebase configuration
           uses: w9jds/firebase-action@v2.0.0
           with:
