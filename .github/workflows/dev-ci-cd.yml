@@ -74,7 +74,7 @@ jobs:
           uses: actions/download-artifact@v2.0.8
           with:
             # Destination path
-            path: dist
+            name: dist
         - name: Display structure of downloaded files
           run: ls -R
         - name: Install dependencies
