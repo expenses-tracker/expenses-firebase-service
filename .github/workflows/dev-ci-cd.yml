@@ -73,14 +73,13 @@ jobs:
 #           uses: actions/checkout@master
         - name: Download a Build Artifact
           uses: actions/download-artifact@v2.0.8
-#           with:
-#             # Destination path
-#             name: dist
-#             path: dist
+          with:
+            # Destination path
+            path: artifact/functions
         - name: Display structure of downloaded files
           run: ls -R
-#         - name: Install dependencies
-#           run: cd functions && npm install
+        - name: Install dependencies
+          run: npm install
         - name: Set the project firebase configuration
           uses: w9jds/firebase-action@v2.0.0
           with:
