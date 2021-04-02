@@ -39,7 +39,7 @@ jobs:
         run: cd functions && npm run build
         
       # Copy files
-      - name: copy file
+      - name: Copy file
         uses: canastro/copy-file-action@master
         with:
           source: "firebase.json"
@@ -71,9 +71,9 @@ jobs:
 #           uses: actions/checkout@master
         - name: Download a Build Artifact
           uses: actions/download-artifact@v2.0.8
-          with:
+#           with:
             # Destination path
-            path: artifact
+#             path: artifact
         - name: Display structure of downloaded files
           run: ls -R
         - name: Install dependencies
