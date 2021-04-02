@@ -49,11 +49,9 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.2
         with:
-#           name: dist
           # A file, directory or wildcard pattern that describes what to upload
           path: |
-            **/*
-            !.git/**/*
+            **/functions/*
             !**/node_modules/**/*
           if-no-files-found: error
       
@@ -63,9 +61,9 @@ jobs:
     needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-#     defaults:
-#       run:
-#         working-directory: functions
+    defaults:
+      run:
+        working-directory: functions
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -75,7 +73,7 @@ jobs:
           uses: actions/download-artifact@v2.0.8
           with:
             # Destination path
-            path: artifact/functions
+            path: artifact
         - name: Display structure of downloaded files
           run: ls -R
         - name: Install dependencies
