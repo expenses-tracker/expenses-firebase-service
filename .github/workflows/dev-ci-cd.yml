@@ -62,9 +62,9 @@ jobs:
     needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: functions
+#     defaults:
+#       run:
+#         working-directory: functions
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -75,10 +75,10 @@ jobs:
 #           with:
             # Destination path
 #             path: artifact
-#         - name: Display structure of downloaded files
-#           run: ls -R
-        - name: Install dependencies
-          run: npm install
+        - name: Display structure of downloaded files
+          run: ls -R
+#         - name: Install dependencies
+#           run: npm install
         - name: Set the project firebase configuration
           uses: w9jds/firebase-action@v2.0.0
           with:
