@@ -38,6 +38,13 @@ jobs:
       - name: Build
         run: cd functions && npm run build
         
+      # Copy files
+      - name: copy file
+        uses: canastro/copy-file-action@master
+        with:
+          source: "firebase.json"
+          target: "functions/firebase.json"
+        
       # Upload build artifacts
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.2
@@ -45,9 +52,7 @@ jobs:
 #           name: dist
           # A file, directory or wildcard pattern that describes what to upload
           path: |
-            **/functions/**/*
-            .firebaserc
-            .firebase.json
+            **/*
             !.git/**/*
             !**/node_modules/**/*
           if-no-files-found: error
