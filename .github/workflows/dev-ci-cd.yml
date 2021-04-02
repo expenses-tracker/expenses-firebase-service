@@ -48,6 +48,8 @@ jobs:
             **/functions/**/*
             .firebaserc
             .firebase.json
+            !.git/**/*
+            !**/node_modules/**/*
           if-no-files-found: error
       
           
