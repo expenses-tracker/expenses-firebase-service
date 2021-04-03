@@ -62,14 +62,9 @@ jobs:
     needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-#     defaults:
-#       run:
-#         working-directory: functions
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-#         - name: Checkout Repo
-#           uses: actions/checkout@master
         - name: Download a Build Artifact
           uses: actions/download-artifact@v2.0.8
           with:
