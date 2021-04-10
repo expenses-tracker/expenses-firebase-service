@@ -17,6 +17,10 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    env:
+      environment: dev
+      domain: ${{ secrets.SERVICE_DOMAIN_DEV }}
+      mongourl: ${{ secrets.MONGO_URL_DEV }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -62,15 +66,9 @@ jobs:
     needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    env:
-      environment: dev
-      domain: https://us-central1-expense-sheets-dev.cloudfunctions.net/appdev
-      mongourl: mongodb+srv://varnit-mongodb:oykq7IiTURHoU03Z@expense-dev.vhxfi.mongodb.net/expenses?retryWrites=true&w=majority
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-        - name: Verify environment variable
-          run: echo "Domain ${{ env.domain }}"
         - name: Download a Build Artifact
           uses: actions/download-artifact@v2.0.8
           with:
