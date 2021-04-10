@@ -19,11 +19,9 @@ const defaultServiceEndpoints = {
   };
 
 exports.environment = {
-    production: functions.config().expenseservice?.environment === 'prod',
+    production: process.env.environment === 'prod',
     service: {
-        domain: functions.config().expenseservice?.environment === 'prod' ? 
-        'https://us-central1-com-varnit-expense-sheet.cloudfunctions.net/app' : 
-        'https://us-central1-expense-sheets-dev.cloudfunctions.net/appdev',
+        domain: process.env.domain,
         endpoints: defaultServiceEndpoints
     }
 };

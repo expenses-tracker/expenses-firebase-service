@@ -62,6 +62,10 @@ jobs:
     needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    env:
+      environment: dev
+      domain: ${{ secrets.SERVICE_DOMAIN_DEV }}
+      mongourl: ${{ secrets.MONGO_URL_DEV }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -74,13 +78,13 @@ jobs:
         #   run: ls -R
         - name: Install dependencies
           run: npm install
-        - name: Set the project firebase configuration
-          uses: w9jds/firebase-action@v2.0.0
-          with:
-            args: functions:config:set --project ${{ secrets.FIREBASE_DEV_APPID }} expenseservice.environment=dev expenseservice.mongourl=${{ secrets.MONGO_URL_DEV }}
-          env:
-            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-            TARGET: dev
+        # - name: Set the project firebase configuration
+        #   uses: w9jds/firebase-action@v2.0.0
+        #   with:
+        #     args: functions:config:set --project ${{ secrets.FIREBASE_DEV_APPID }} expenseservice.environment=dev expenseservice.mongourl=${{ secrets.MONGO_URL_DEV }}
+        #   env:
+        #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        #     TARGET: dev
         - name: Deploy the build
           uses: w9jds/firebase-action@v2.0.0
           with:
