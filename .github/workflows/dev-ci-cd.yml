@@ -77,7 +77,7 @@ jobs:
         - name: Set the project firebase configuration
           uses: w9jds/firebase-action@v2.0.0
           with:
-            args: functions:config:set expenseservice.environment=dev expenseservice.mongourl=${{ secrets.MONGO_URL_DEV }} --project ${{ secrets.FIREBASE_DEV_APPID }}
+            args: functions:config:set --project ${{ secrets.FIREBASE_DEV_APPID }} expenseservice.environment=dev expenseservice.mongourl=${{ secrets.MONGO_URL_DEV }}
           env:
             FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
             TARGET: dev
