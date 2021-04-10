@@ -17,10 +17,6 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    env:
-      environment: dev
-      domain: ${{ secrets.SERVICE_DOMAIN_DEV }}
-      mongourl: ${{ secrets.MONGO_URL_DEV }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -33,6 +29,13 @@ jobs:
         with:
           # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
           node-version: '14.x'
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_environment: "dev"
+          envkey_domain: ${{ secrets.SERVICE_DOMAIN_DEV }}
+          envkey_mongourl: ${{ secrets.MONGO_URL_DEV }}
           
       # Install project dependencies
       - name: Install dependencies
@@ -48,6 +51,12 @@ jobs:
         with:
           source: "firebase-deploy.json"
           target: "functions/firebase.json"
+
+      - name: Copy file
+        uses: canastro/copy-file-action@master
+        with:
+          source: ".env"
+          target: "functions/.env"
         
       # Upload build artifacts
       - name: Upload a Build Artifact
