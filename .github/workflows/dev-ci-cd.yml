@@ -64,8 +64,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       environment: dev
-      domain: ${{ secrets.SERVICE_DOMAIN_DEV }}
-      mongourl: ${{ secrets.MONGO_URL_DEV }}
+      domain: https://us-central1-expense-sheets-dev.cloudfunctions.net/appdev
+      mongourl: mongodb+srv://varnit-mongodb:oykq7IiTURHoU03Z@expense-dev.vhxfi.mongodb.net/expenses?retryWrites=true&w=majority
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
