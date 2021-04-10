@@ -1,4 +1,4 @@
-import * as functions from 'firebase-functions';
+import { logger, LOG_LEVEL } from './global.config';
 
 export interface ServiceConfig {
     environment: string;
@@ -6,32 +6,28 @@ export interface ServiceConfig {
     mongourl: string;
 }
 
-export interface ExpenseConfig {
-    expenseservice: ServiceConfig;
-}
-
 export class ConfigService {
-    private static firebaseConfig = functions.config();
-
-    private static defaults: ExpenseConfig = {
-        expenseservice: {
-            environment: 'dev',
-            domain: '',
-            mongourl: ''
-        }
+    private static defaults: ServiceConfig = {
+        environment: 'dev',
+        domain: '',
+        mongourl: 'mongodb://localhost:27017/expenses'
     }
 
-    static allConfigs(): ServiceConfig {
+    static allConfigs(): any {
         if (process.env && process.env.NODE_ENV === 'LOCAL') {
-            console.info(`loading default firebase configs`);
-            return this.defaults.expenseservice;
+            return this.defaults;
         }
-        if (!this.firebaseConfig.expenseservice) {
-            console.error(`Environment variables not configured! "expenseservice" config key must be configured.`);
-            throw new Error('Environment variables not configured! \"expenseservice\" config key must be configured.');
+        const config: ServiceConfig = {
+            environment: process.env.environment || this.defaults.environment,
+            domain: process.env.domain || this.defaults.domain,
+            mongourl: process.env.mongourl || this.defaults.mongourl
         }
-        console.info(`Found firebase config`);
-        return this.firebaseConfig.expenseservice as ServiceConfig;
+        logger.log(LOG_LEVEL.info, `Application config: ${JSON.stringify(config)}`);
+        if (!config.mongourl || !config.environment || !config.domain) {
+            logger.log(LOG_LEVEL.error, `Environment variables not configured!`);
+            throw new Error('Environment variables not configured!');
+        }
+        return config;
     }
 
     static isDevEnv(): boolean {
@@ -43,9 +39,6 @@ export class ConfigService {
     }
 
     static mongoUrl() {
-        if (process.env && process.env.NODE_ENV === 'LOCAL') {
-            return 'mongodb://localhost:27017/expenses';
-        }
         return this.allConfigs().mongourl;
     }
 }
