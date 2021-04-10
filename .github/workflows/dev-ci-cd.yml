@@ -29,13 +29,6 @@ jobs:
         with:
           # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
           node-version: '14.x'
-
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          envkey_environment: "dev"
-          envkey_domain: ${{ secrets.SERVICE_DOMAIN_DEV }}
-          envkey_mongourl: ${{ secrets.MONGO_URL_DEV }}
           
       # Install project dependencies
       - name: Install dependencies
@@ -77,17 +70,17 @@ jobs:
           with:
             # Destination path
             name: dist
-        # - name: Display structure of downloaded files
-        #   run: ls -R
+
         - name: Install dependencies
           run: npm install
-        # - name: Set the project firebase configuration
-        #   uses: w9jds/firebase-action@v2.0.0
-        #   with:
-        #     args: functions:config:set --project ${{ secrets.FIREBASE_DEV_APPID }} expenseservice.environment=dev expenseservice.mongourl=${{ secrets.MONGO_URL_DEV }}
-        #   env:
-        #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        #     TARGET: dev
+
+        - name: Make envfile
+          uses: SpicyPizza/create-envfile@v1
+          with:
+            envkey_environment: "dev"
+            envkey_domain: ${{ secrets.SERVICE_DOMAIN_DEV }}
+            envkey_mongourl: ${{ secrets.MONGO_URL_DEV }}
+
         - name: Deploy the build
           uses: w9jds/firebase-action@v2.0.0
           with:
