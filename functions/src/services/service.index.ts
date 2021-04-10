@@ -1,7 +1,7 @@
 import mongoose = require("mongoose");
 import { ConfigService } from "../configs/config.service";
 
-import { logger, LOG_LEVEL, GLOBAL_CONFIG } from "../configs/global.config";
+import { logger, LOG_LEVEL } from "../configs/global.config";
 
 import { CategoryService } from "./categories.service";
 import { DashboardService } from "./dashboard.service";
@@ -31,7 +31,8 @@ export class AllServices {
     }
 
     static connect() {
-        mongoose.connect(ConfigService.mongoUrl(), { useNewUrlParser: true, useUnifiedTopology: true });
+        const dbUrl = ConfigService.mongoUrl();
+        mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
         mongoose.connection.once('open', () => {
             logger.log(LOG_LEVEL.info, 'Connected to Mongo via Mongoose');
         });

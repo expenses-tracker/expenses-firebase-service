@@ -1,10 +1,9 @@
 import * as functions from 'firebase-functions';
-import { GLOBAL_CONFIG } from './global.config';
 
 export interface ServiceConfig {
     environment: string;
     domain: string;
-    mongopwd?: string;
+    mongourl: string;
 }
 
 export interface ExpenseConfig {
@@ -18,7 +17,7 @@ export class ConfigService {
         expenseservice: {
             environment: 'dev',
             domain: '',
-            mongopwd: ''
+            mongourl: ''
         }
     }
 
@@ -44,12 +43,9 @@ export class ConfigService {
     }
 
     static mongoUrl() {
-        if (this.isDevEnv()) {
-            return GLOBAL_CONFIG.database.devurl;
-        } else if (this.isProdEnv()) {
-            return GLOBAL_CONFIG.database.produrl;
-        } else {
-            throw new Error('Environment value not found');
+        if (process.env && process.env.NODE_ENV === 'LOCAL') {
+            return 'mongodb://localhost:27017/expenses';
         }
+        return this.allConfigs().mongourl;
     }
 }
