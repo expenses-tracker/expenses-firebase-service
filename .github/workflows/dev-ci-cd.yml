@@ -51,12 +51,6 @@ jobs:
         with:
           source: "firebase-deploy.json"
           target: "functions/firebase.json"
-
-      - name: Copy file
-        uses: canastro/copy-file-action@master
-        with:
-          source: ".env"
-          target: "functions/.env"
         
       # Upload build artifacts
       - name: Upload a Build Artifact
