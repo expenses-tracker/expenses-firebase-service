@@ -77,9 +77,10 @@ jobs:
         - name: Make envfile
           uses: SpicyPizza/create-envfile@v1
           with:
-            envkey_environment: "dev"
-            envkey_domain: ${{ secrets.SERVICE_DOMAIN_RELEASE }}
-            envkey_mongourl: ${{ secrets.MONGO_URL_RELEASE }}
+            envkey_APP_ENV: "prod"
+            envkey_SERVICE_DOMAIN: ${{ secrets.SERVICE_DOMAIN_RELEASE }}
+            envkey_MONGO_DB_SRV: ${{ secrets.MONGO_URL_RELEASE }}
+            envkey_BCRYPT_SALT_ROUNDS: ${{ secrets.BCRYPT_SALT_ROUNDS }}
 
         - name: Deploy the build
           uses: w9jds/firebase-action@v2.0.0

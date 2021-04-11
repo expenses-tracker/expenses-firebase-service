@@ -19,9 +19,9 @@ const defaultServiceEndpoints = {
   };
 
 exports.environment = {
-    production: process.env.environment === 'prod',
+    production: process.env.APP_ENV === 'prod',
     service: {
-        domain: process.env.domain,
+        domain: process.env.SERVICE_DOMAIN,
         endpoints: defaultServiceEndpoints
     }
 };

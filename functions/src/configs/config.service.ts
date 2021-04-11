@@ -18,9 +18,9 @@ export class ConfigService {
             return this.defaults;
         }
         const config: ServiceConfig = {
-            environment: process.env.environment || this.defaults.environment,
-            domain: process.env.domain || this.defaults.domain,
-            mongourl: process.env.mongourl || this.defaults.mongourl
+            environment: process.env.APP_ENV || this.defaults.environment,
+            domain: process.env.SERVICE_DOMAIN || this.defaults.domain,
+            mongourl: process.env.MONGO_DB_SRV || this.defaults.mongourl
         }
         logger.log(LOG_LEVEL.info, `Application config: ${JSON.stringify(config)}`);
         if (!config.mongourl || !config.environment || !config.domain) {
