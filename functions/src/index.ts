@@ -48,7 +48,11 @@ init(authConfig);
  *  App Configuration
  */
 app.use(helmet());
-app.use(cors());
+const corsOptions = {
+    origin: /varnitapps\.com$/,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(checkJwt);
 AllRoutes.init(app);
@@ -59,7 +63,7 @@ app.use(notFoundHandler);
 /**
  * Server Activation
  */
-app.listen(PORT, async() => {
+app.listen(PORT, async () => {
     logger.log(LOG_LEVEL.info, `listening on port ${PORT}`);
     AllServices.init();
 });
