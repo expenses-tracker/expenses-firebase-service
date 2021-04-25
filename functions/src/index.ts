@@ -48,17 +48,27 @@ init(authConfig);
  *  App Configuration
  */
 app.use(helmet());
-const corsOptions = {
-    origin: ['https://dev.expense.varnitapps.com', 'https://expense.varnitapps.com'],
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
-};
-app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(checkJwt);
 AllRoutes.init(app);
 
 app.use(errorHandler);
 app.use(notFoundHandler);
+
+const service_env = ConfigService.allConfigs().environment;
+console.log(`Service Environment ::: ${service_env}`);
+
+const appUrl = (ConfigService.isProdEnv() ? process.env.APP_URL : process.env.DEV_APP_URL) || 'http://localhost:4200';
+const corsOptions = {
+    origin: appUrl,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
+};
+app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", appUrl );
+  next();
+});
 
 /**
  * Server Activation
@@ -76,8 +86,6 @@ process.on('SIGINT', () => {
     AllServices.dbClose();
 });
 
-const service_env = ConfigService.allConfigs().environment;
-console.log(`Service Environment ::: ${service_env}`);
 const service_name = ConfigService.isProdEnv() ? 'app' : `app${service_env}`;
 exports[service_name] = functions.https.onRequest(app);
 
