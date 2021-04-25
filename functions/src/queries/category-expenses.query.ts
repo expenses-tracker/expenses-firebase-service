@@ -12,11 +12,11 @@ export class MonthlyCategoryExpensesQueryBuilder {
         '$group': {
           '_id': {
             'month': {
-              '$month': '$dated'
+              '$month': { date: '$dated', timezone: '+0530' }
             }, 
             'category': '$category', 
             'year': {
-              '$year': '$dated'
+              '$year': { date: '$dated', timezone: '+0530' }
             }
           }, 
           'amount': {

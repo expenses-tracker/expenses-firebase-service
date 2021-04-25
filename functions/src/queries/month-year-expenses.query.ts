@@ -13,10 +13,10 @@ export class MonthYearExpensesQueryBuilder {
                 '$group': {
                     '_id': {
                         'month': {
-                            '$month': '$dated'
+                            '$month': { date: '$dated', timezone: '+0530' }
                         },
                         'year': {
-                            '$year': '$dated'
+                            '$year': { date: '$dated', timezone: '+0530' }
                         }
                     },
                     'amount': {
