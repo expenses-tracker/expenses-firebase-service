@@ -49,7 +49,7 @@ init(authConfig);
  */
 app.use(helmet());
 const corsOptions = {
-    origin: /varnitapps\.com$/,
+    origin: ['https://dev.expense.varnitapps.com', 'https://expense.varnitapps.com'],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
 };
 app.use(cors(corsOptions));
