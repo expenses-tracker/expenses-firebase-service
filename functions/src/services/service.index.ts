@@ -32,7 +32,7 @@ export class AllServices {
 
     static connect() {
         const dbUrl = ConfigService.mongoUrl();
-        mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+        mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
         mongoose.connection.once('open', () => {
             logger.log(LOG_LEVEL.info, 'Connected to Mongo via Mongoose');
         });
