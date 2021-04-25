@@ -81,6 +81,7 @@ jobs:
             envkey_SERVICE_DOMAIN: ${{ secrets.SERVICE_DOMAIN_RELEASE }}
             envkey_MONGO_DB_SRV: ${{ secrets.MONGO_URL_RELEASE }}
             envkey_BCRYPT_SALT_ROUNDS: ${{ secrets.BCRYPT_SALT_ROUNDS }}
+            envkey_APP_URL: ${{ secrets.APP_URL }}
 
         - name: Deploy the build
           uses: w9jds/firebase-action@v2.0.0
