@@ -60,11 +60,11 @@ const service_env = ConfigService.allConfigs().environment;
 console.log(`Service Environment ::: ${service_env}`);
 
 const appUrl = (ConfigService.isProdEnv() ? process.env.APP_URL : process.env.DEV_APP_URL) || 'http://localhost:4200';
-// const corsOptions = {
-//     origin: /varnitapps\.com$/,
-//     optionsSuccessStatus: 200
-// };
-// app.use(cors(corsOptions));
+const corsOptions = {
+    origin: /varnitapps\.com$/,
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', appUrl );
   next();
