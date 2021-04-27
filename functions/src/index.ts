@@ -61,13 +61,14 @@ console.log(`Service Environment ::: ${service_env}`);
 
 const appUrl = (ConfigService.isProdEnv() ? process.env.APP_URL : process.env.DEV_APP_URL) || 'http://localhost:4200';
 const corsOptions = {
-    origin: 'varnitapps.com'
+    origin: /example\.com$/,
+    optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", appUrl );
-//   next();
-// });
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', appUrl );
+  next();
+});
 
 /**
  * Server Activation
