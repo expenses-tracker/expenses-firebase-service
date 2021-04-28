@@ -5,18 +5,18 @@ import * as functions from 'firebase-functions';
 /**
  * Required External Modules
  */
-import * as dotenv from "dotenv";
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
+import * as dotenv from 'dotenv';
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
 
-import { LOG_LEVEL, logger, whiteListedUrls } from "./configs/global.config";
+import { LOG_LEVEL, logger, whiteListedUrls } from './configs/global.config';
 
-import { errorHandler } from "core-api-lib/middleware/error.middleware";
-import { notFoundHandler } from "core-api-lib/middleware/notFound.middleware";
-import { checkJwt, IAuthConfig, init } from "core-api-lib/middleware/auth.middleware";
-import { AllRoutes } from "./routes/routes.index";
-import { AllServices } from "./services/service.index";
+import { errorHandler } from 'core-api-lib/middleware/error.middleware';
+import { notFoundHandler } from 'core-api-lib/middleware/notFound.middleware';
+import { checkJwt, IAuthConfig, init } from 'core-api-lib/middleware/auth.middleware';
+import { AllRoutes } from './routes/routes.index';
+import { AllServices } from './services/service.index';
 import { ConfigService } from './configs/config.service';
 
 dotenv.config();
@@ -59,12 +59,12 @@ app.use(notFoundHandler);
 const service_env = ConfigService.allConfigs().environment;
 console.log(`Service Environment ::: ${service_env}`);
 
-const appUrl = (ConfigService.isProdEnv() ? process.env.APP_URL : process.env.DEV_APP_URL) || 'http://localhost:4200';
+// const appUrl = (ConfigService.isProdEnv() ? process.env.APP_URL : process.env.DEV_APP_URL) || 'http://localhost:4200';
 app.use(cors());
 app.use((req, res, next) => {
-   res.header("Access-Control-Allow-Origin", appUrl);
+   res.header('Access-Control-Allow-Origin', '*');
    res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST, PATCH');
-   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
    next();
 });
 
