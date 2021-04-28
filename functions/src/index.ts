@@ -65,7 +65,7 @@ const appUrl = (ConfigService.isProdEnv() ? process.env.APP_URL : process.env.DE
 //   next();
 // });
 const corsOptions = {
-    origin: /varnitapps\.com$/,
+    origin: '*',
     optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
