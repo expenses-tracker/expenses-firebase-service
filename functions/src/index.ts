@@ -63,8 +63,8 @@ const appUrl = (ConfigService.isProdEnv() ? process.env.APP_URL : process.env.DE
 app.use(cors());
 app.use((req, res, next) => {
    res.header("Access-Control-Allow-Origin", appUrl);
-   res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST, PATCH');
-   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST, PATCH, OPTIONS');
+   res.header("Access-Control-Allow-Headers", "Origin, Authorization, X-Requested-With, Content-Type, Accept");
    next();
 });
 
