@@ -33,4 +33,3 @@ const ExpenseSchema = new Schema({
 ExpenseSchema.index({ dated: 1, category: 1, paymentType: 1 }, { unique: false });
 
 export const ExpenseModel = model<Expense>('expenses', ExpenseSchema);
-ExpenseModel.createIndexes();

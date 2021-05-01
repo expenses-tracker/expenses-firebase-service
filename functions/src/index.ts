@@ -48,25 +48,29 @@ init(authConfig);
  *  App Configuration
  */
 app.use(helmet());
-
 app.use(express.json());
+
+// CORS setup
+const service_env = ConfigService.allConfigs().environment;
+console.log(`Service Environment ::: ${service_env}`);
+const clientUrl = ConfigService.isProdEnv() ? process.env.APP_URL : process.env.DEV_APP_URL;
+const appUrl = clientUrl || 'http://localhost:4200';
+
+const corsOptions = {
+    'origin': appUrl,
+    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue': false,
+    'optionsSuccessStatus': 204
+  };
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+// Routes init
 app.use(checkJwt);
 AllRoutes.init(app);
 
 app.use(errorHandler);
 app.use(notFoundHandler);
-
-const service_env = ConfigService.allConfigs().environment;
-console.log(`Service Environment ::: ${service_env}`);
-
-const appUrl = (ConfigService.isProdEnv() ? process.env.APP_URL : process.env.DEV_APP_URL) || 'http://localhost:4200';
-app.use(cors());
-app.use((req, res, next) => {
-   res.header("Access-Control-Allow-Origin", appUrl);
-   res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST, PATCH, OPTIONS');
-   res.header("Access-Control-Allow-Headers", "Origin, Authorization, X-Requested-With, Content-Type, Accept");
-   next();
-});
 
 /**
  * Server Activation
