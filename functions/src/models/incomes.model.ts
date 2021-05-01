@@ -31,4 +31,3 @@ const IncomeSchema = new Schema({
 IncomeSchema.index({ dated: -1, paymentType: 1 }, { unique: false });
 
 export const IncomeModel = model<Income>('incomes', IncomeSchema);
-IncomeModel.createIndexes();
