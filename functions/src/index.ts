@@ -59,12 +59,12 @@ app.use(notFoundHandler);
 const service_env = ConfigService.allConfigs().environment;
 console.log(`Service Environment ::: ${service_env}`);
 
-// const appUrl = (ConfigService.isProdEnv() ? process.env.APP_URL : process.env.DEV_APP_URL) || 'http://localhost:4200';
+const appUrl = (ConfigService.isProdEnv() ? process.env.APP_URL : process.env.DEV_APP_URL) || 'http://localhost:4200';
 app.use(cors());
 app.use((req, res, next) => {
-   res.header('Access-Control-Allow-Origin', '*');
-   res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST, PATCH');
-   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+   res.header("Access-Control-Allow-Origin", appUrl);
+   res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST, PATCH, OPTIONS');
+   res.header("Access-Control-Allow-Headers", "Origin, Authorization, X-Requested-With, Content-Type, Accept");
    next();
 });
 
