@@ -4,7 +4,7 @@ export interface IReferenceData {
     _id: string;
     currency: any;
     securityQuestions: any;
-}; 
+}
 
 type ReferenceData = mongoose.Document & IReferenceData; 
 

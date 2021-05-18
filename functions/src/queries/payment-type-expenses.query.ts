@@ -2,7 +2,7 @@ import { UserMetaData } from "../models/userMetaData.model";
 
 export class MonthlyPaymentTypeExpensesQueryBuilder {
   static build(userData: UserMetaData): any {
-    const monthlyPaymentTypeExpensesQuery = [
+    return [
       {
         '$match': {
           'createdBy': userData.fullName
@@ -25,6 +25,5 @@ export class MonthlyPaymentTypeExpensesQueryBuilder {
         }
       }
     ];
-    return monthlyPaymentTypeExpensesQuery;
   }
 }

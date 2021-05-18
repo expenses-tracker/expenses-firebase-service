@@ -20,6 +20,6 @@ export class SearchService {
     }
 
     async searchData(userData: UserMetaData, searchAttributes: SearchMetaData) {
-        return await this.dbService.search(userData, searchAttributes);
+        return this.dbService.search(userData, searchAttributes);
     }
 }

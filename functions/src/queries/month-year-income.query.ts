@@ -2,7 +2,7 @@ import { UserMetaData } from "../models/userMetaData.model";
 
 export class MonthYearIncomeQueryBuilder {
     static build(userData: UserMetaData, dateRange: {from: string, to: string}): any {
-        const monthYearIncomeQuery = [
+        return [
             {
                 '$match': {
                   'createdBy': userData.fullName,
@@ -28,6 +28,5 @@ export class MonthYearIncomeQueryBuilder {
                 }
             }
         ];
-        return monthYearIncomeQuery;
     }
 }

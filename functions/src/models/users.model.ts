@@ -1,4 +1,4 @@
-import mongoose, { Schema, SchemaType, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 export interface ICurrency {
     type: string;
@@ -29,7 +29,7 @@ export interface IUsers {
     createdBy: string;
     updatedOn: Date;
     updatedBy: string;
-};
+}
 
 type User = mongoose.Document & IUsers; 
 

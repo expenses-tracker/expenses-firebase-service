@@ -24,12 +24,6 @@ dotenv.config();
 /**
  * App Variables
  */
-// if (!process.env.PORT) {
-//     logger.log(LOG_LEVEL.error, `PORT configuration value not found!`);
-//     process.exit(1);
-// }
-
-// const PORT: number = parseInt(process.env.PORT as string, 10);
 const PORT: number = 3000;
 
 const app = express();

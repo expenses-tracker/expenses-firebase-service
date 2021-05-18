@@ -19,19 +19,19 @@ export class CategoryService {
     }
 
     async findAllCategories(userData: UserMetaData) {
-        return await this.dbService.find(userData);
+        return this.dbService.find(userData);
     }
 
     async findCategoryById(id: string) {
-        return await this.dbService.findById(id);
+        return this.dbService.findById(id);
     }
 
     async findCategoryByAttribute(attr: string, value: any) {
-        return await this.dbService.findByAttribute(attr, value);
+        return this.dbService.findByAttribute(attr, value);
     }
 
     async insertCategory(doc: ICategory) {
-        return await this.dbService.insert(doc);
+        return this.dbService.insert(doc);
     }
 
     async updateCategory(_id: string, doc: ICategory) {
@@ -62,10 +62,10 @@ export class CategoryService {
         if (!currentCategory) {
             return Promise.resolve(`No data found`);
         }
-        return await this.dbService.delete(_id);
+        return this.dbService.delete(_id);
     }
 
     async deleteAllCategory() {
-        return await this.dbService.deleteAll();
+        return this.dbService.deleteAll();
     }
 }

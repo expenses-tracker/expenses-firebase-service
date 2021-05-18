@@ -12,7 +12,7 @@ export interface IIncome {
     createdBy: string;
     updatedOn: Date;
     updatedBy: string;
-}; 
+}
 
 type Income = mongoose.Document & IIncome; 
 
