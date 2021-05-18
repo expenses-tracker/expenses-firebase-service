@@ -13,10 +13,13 @@
    ```
    NODE_ENV=LOCAL
    ```
+#### Firebase enabled environment
+ - To run the service with firebase enabled, install the firebase-tools using ```npm install -g firebase-tools```
+ - Login to firebase using ```firebase login```
  
 ### How to run
  - Follow the Local environment setup mentioned above.
- - For testing, execute ```npm run serve``` to run the node service as server.
+ - With firebase enabled, execute ```npm run serve``` to run the node service as server.
  - For development,execute ```npm run start:watch``` to run the service as nodemon server in watch mode.
  - Check the scripts added in package.json for more options.
 
