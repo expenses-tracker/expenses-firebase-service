@@ -41,9 +41,12 @@ export class AllServices {
         });
     }
 
-    static dbClose() {
-        mongoose.connection.close(() => {
+    static async dbClose() {
+        try {
+            await mongoose.connection.close();
             logger.log(LOG_LEVEL.info, `mongo connection closed successfully`);
-        });
+        } catch (error) {
+            logger.log(LOG_LEVEL.error, `mongo connection failed to close. Error: ${JSON.stringify(error)}`);
+        }
     }
 }

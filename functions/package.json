@@ -9,6 +9,7 @@
     "serve": "npm run build && firebase use default && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
+    "start:local": "ts-node src/index.ts",
     "start:watch": "nodemon src/index.ts",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
@@ -25,7 +26,7 @@
     "firebase-admin": "^9.2.0",
     "firebase-functions": "^3.13.2",
     "helmet": "^3.23.3",
-    "mongoose": "^5.12.5"
+    "mongoose": "^5.12.9"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",

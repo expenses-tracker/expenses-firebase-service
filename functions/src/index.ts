@@ -80,12 +80,22 @@ app.listen(PORT, async () => {
     AllServices.init();
 });
 
-process.on('exit', () => {
-    AllServices.dbClose();
+process.on('SIGINT', async () => {
+    logger.log(LOG_LEVEL.error, `Process SIGINT type failure!`);
+    await AllServices.dbClose();
+    process.exit(0);
 });
 
-process.on('SIGINT', () => {
-    AllServices.dbClose();
+process.on('SIGTERM', async () => {
+    logger.log(LOG_LEVEL.error, `Process SIGTERM type failure!`);
+    await AllServices.dbClose();
+    process.exit(0);
+});
+
+process.on('uncaughtexception', async (err, origin) => {
+    logger.log(LOG_LEVEL.error, `Process UnCaught Exception type failure! Error: ${JSON.stringify(err)} Origin: ${JSON.stringify(origin)}`);
+    await AllServices.dbClose();
+    process.exit(0);
 });
 
 const service_name = ConfigService.isProdEnv() ? 'app' : `app${service_env}`;
