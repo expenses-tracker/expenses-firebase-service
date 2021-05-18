@@ -19,39 +19,39 @@ export class ExpenseService {
     }
 
     async findAllExpenses(userData: UserMetaData) {
-        return await this.dbService.find(userData);
+        return this.dbService.find(userData);
     }
 
     async findLimitedExpenses(userData: UserMetaData) {
-        return await this.dbService.findLimited(5, userData);
+        return this.dbService.findLimited(5, userData);
     }
 
     async findExpenseById(id: string) {
-        return await this.dbService.findById(id);
+        return this.dbService.findById(id);
     }
 
     async findExpenseByAttribute(userData: UserMetaData, attr: string, value: any) {
-        return await this.dbService.findByAttribute(userData, attr, value);
+        return this.dbService.findByAttribute(userData, attr, value);
     }
 
     async findExpenseByDateRange(userData: UserMetaData, fromDate: string, toDate: string) {
-        return await this.dbService.findByDateRange(userData, fromDate, toDate);
+        return this.dbService.findByDateRange(userData, fromDate, toDate);
     }
 
     async findMonthlyExpensesGroupedByCategory(userData: UserMetaData) {
-        return await this.dbService.findMonthlyExpensesGroupedByCategory(userData);
+        return this.dbService.findMonthlyExpensesGroupedByCategory(userData);
     }
 
     async findMonthlyExpensesGroupedByPaymentType(userData: UserMetaData) {
-        return await this.dbService.findMonthlyExpensesGroupedByPaymentType(userData);
+        return this.dbService.findMonthlyExpensesGroupedByPaymentType(userData);
     }
 
     async findMonthYearWiseExpenses(userData: UserMetaData, dateRange: {from: string, to: string}) {
-        return await this.dbService.findMonthYearWiseExpenses(userData, dateRange);
+        return this.dbService.findMonthYearWiseExpenses(userData, dateRange);
     }
 
     async insertExpense(doc: IExpense) {
-        return await this.dbService.insert(doc);
+        return this.dbService.insert(doc);
     }
 
     async updateExpense(_id: string, doc: IExpense) {
@@ -73,7 +73,7 @@ export class ExpenseService {
             createdOn: currentExpense.get('createdOn'),
             updatedOn: new Date()
         };
-        return await this.dbService.update(docToUpdate);
+        return this.dbService.update(docToUpdate);
     }
 
     async deleteExpense(_id: string) {
@@ -81,10 +81,10 @@ export class ExpenseService {
         if (!currentExpense) {
             return Promise.resolve(`No data found`);
         }
-        return await this.dbService.delete(_id);
+        return this.dbService.delete(_id);
     }
 
     async deleteAllExpense(userData: UserMetaData) {
-        return await this.dbService.deleteAll(userData);
+        return this.dbService.deleteAll(userData);
     }
 }

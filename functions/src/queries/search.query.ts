@@ -21,11 +21,10 @@ export class SearchQueryBuilder {
         '$lte': new Date(searchAttr.timeFrame.to)
       }
     }
-    const searchExpensesQuery = [
+    return [
       {
         '$match': queryObj
       }
     ];
-    return searchExpensesQuery;
   }
 }

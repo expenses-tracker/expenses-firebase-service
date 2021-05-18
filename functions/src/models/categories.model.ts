@@ -9,7 +9,7 @@ export interface ICategory {
     createdBy: string;
     updatedOn: Date;
     updatedBy: string;
-}; 
+}
 
 type Category = mongoose.Document & ICategory; 
 

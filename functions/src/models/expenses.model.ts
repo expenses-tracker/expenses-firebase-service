@@ -13,7 +13,7 @@ export interface IExpense {
     createdBy: string;
     updatedOn: Date;
     updatedBy: string;
-}; 
+}
 
 type Expense = mongoose.Document & IExpense; 
 

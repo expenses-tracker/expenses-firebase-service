@@ -18,49 +18,30 @@ export class ReferenceDataService {
     }
 
     async findAllReferenceData() {
-        return await this.dbService.find();
+        return this.dbService.find();
     }
 
     async findReferenceDataById(id: string) {
-        return await this.dbService.findById(id);
+        return this.dbService.findById(id);
     }
 
     async findReferenceDataByAttribute(attr: string, value: any) {
-        return await this.dbService.findByAttribute(attr, value);
+        return this.dbService.findByAttribute(attr, value);
     }
 
     async insertReferenceData(doc: IReferenceData) {
-        return await this.dbService.insert(doc);
+        return this.dbService.insert(doc);
     }
-
-    // async updateReferenceData(_id: string, doc: IReferenceData) {
-    //     const currentReferenceData = await this.dbService.findById(_id);
-    //     if (!currentReferenceData) {
-    //         return Promise.resolve(`No data found`);
-    //     }
-    //     const docToUpdate: IReferenceData = {
-    //         _id: _id,
-    //         description: doc.description,
-    //         amount: doc.amount,
-    //         paymentType: doc.paymentType,
-    //         dated: doc.dated,
-    //         createdBy: currentReferenceData.get('createdBy'),
-    //         updatedBy: doc.updatedBy,
-    //         createdOn: currentReferenceData.get('createdOn'),
-    //         updatedOn: new Date()
-    //     };
-    //     return await this.dbService.update(docToUpdate);
-    // }
 
     async deleteReferenceData(_id: string) {
         const currentReferenceData = await this.dbService.findById(_id);
         if (!currentReferenceData) {
             return Promise.resolve(`No data found`);
         }
-        return await this.dbService.delete(_id);
+        return this.dbService.delete(_id);
     }
 
     async deleteAllReferenceData() {
-        return await this.dbService.deleteAll();
+        return this.dbService.deleteAll();
     }
 }

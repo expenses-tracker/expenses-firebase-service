@@ -23,4 +23,4 @@ export interface IPaymentTypes {
     createdBy: string;
     updatedOn: Date;
     updatedBy: string;
-}; 
+}

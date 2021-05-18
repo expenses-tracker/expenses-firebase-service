@@ -19,19 +19,19 @@ export class PaymentTypesService {
     }
 
     async findAllPaymentTypes(userData: UserMetaData) {
-        return await this.dbService.find(userData);
+        return this.dbService.find(userData);
     }
 
     async findPaymentTypeById(id: string) {
-        return await this.dbService.findById(id);
+        return this.dbService.findById(id);
     }
 
     async findPaymentTypeByAttribute(attr: string, value: any) {
-        return await this.dbService.findByAttribute(attr, value);
+        return this.dbService.findByAttribute(attr, value);
     }
 
     async insertPaymentType(doc: IPaymentTypes) {
-        return await this.dbService.insert(doc);
+        return this.dbService.insert(doc);
     }
 
     async updatePaymentType(_id: string, doc: IPaymentTypes) {
@@ -62,10 +62,10 @@ export class PaymentTypesService {
         if (!currentPaymentType) {
             return Promise.resolve(`No data found`);
         }
-        return await this.dbService.delete(_id);
+        return this.dbService.delete(_id);
     }
 
     async deleteAllPaymentType() {
-        return await this.dbService.deleteAll();
+        return this.dbService.deleteAll();
     }
 }

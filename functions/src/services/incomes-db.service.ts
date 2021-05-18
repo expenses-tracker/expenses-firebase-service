@@ -1,7 +1,7 @@
 import mongoose = require("mongoose");
 import { ConfigService } from "../configs/config.service";
 
-import { logger, LOG_LEVEL, GLOBAL_CONFIG } from "../configs/global.config";
+import { logger, LOG_LEVEL } from "../configs/global.config";
 import { IncomeModel, IIncome } from "../models/incomes.model";
 import { UserMetaData } from "../models/userMetaData.model";
 import { MonthYearIncomeQueryBuilder } from "../queries/month-year-income.query";

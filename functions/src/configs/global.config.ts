@@ -21,6 +21,6 @@ export enum LOG_LEVEL {
     verbose = 'verbose',
     debug = 'debug',
     silly = 'silly'
-};
+}
 
 export const logger = loggerService;

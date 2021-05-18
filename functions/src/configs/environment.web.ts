@@ -1,5 +1,3 @@
-import * as functions from 'firebase-functions';
-
 const defaultServiceEndpoints = {
     login: '/users/login',
     register: '/users/register',

@@ -76,7 +76,6 @@ expensesRouter.post("/dateRange", async (req: Request, res: Response) => {
 // GET expenses/:id
 expensesRouter.get("/:id", async (req: Request, res: Response) => {
   try {
-    const userData = CommonsUtil.getUserInfo(res.locals.jwtPayload);
     const expense = await ExpenseService.getInstance().findExpenseById(req.params.id);
     return res.status(200).send(expense);
   } catch (e) {

@@ -20,19 +20,19 @@ export class UsersService {
     }
 
     async findAllUsers() {
-        return await this.dbService.find();
+        return this.dbService.find();
     }
 
     async findUserById(id: string) {
-        return await this.dbService.findById(id);
+        return this.dbService.findById(id);
     }
 
     async findUserByAttribute(attr: string, value: any) {
-        return await this.dbService.findByAttribute(attr, value);
+        return this.dbService.findByAttribute(attr, value);
     }
 
     async insertUser(doc: IUsers) {
-        return await this.dbService.insert(doc);
+        return this.dbService.insert(doc);
     }
 
     async registerUser(email: string, password: string, fullName: string, defaultCurrency: string, permissions: string[], question: string, answer: string) {
@@ -140,7 +140,7 @@ export class UsersService {
         if (!currentUser) {
             return Promise.resolve(`No data found`);
         }
-        return await this.dbService.update(doc);
+        return this.dbService.update(doc);
     }
 
     async deleteUser(_id: string) {
@@ -148,10 +148,10 @@ export class UsersService {
         if (!currentUser) {
             return Promise.resolve(`No data found`);
         }
-        return await this.dbService.delete(_id);
+        return this.dbService.delete(_id);
     }
 
     async deleteAllUser() {
-        return await this.dbService.deleteAll();
+        return this.dbService.deleteAll();
     }
 }

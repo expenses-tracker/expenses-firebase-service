@@ -19,31 +19,31 @@ export class IncomeService {
     }
 
     async findAllIncomes(userData: UserMetaData) {
-        return await this.dbService.find(userData);
+        return this.dbService.find(userData);
     }
 
     async findLimitedIncomes(userData: UserMetaData) {
-        return await this.dbService.findLimited(5, userData);
+        return this.dbService.findLimited(5, userData);
     }
 
     async findIncomeById(id: string) {
-        return await this.dbService.findById(id);
+        return this.dbService.findById(id);
     }
 
     async findIncomeByAttribute(attr: string, value: any) {
-        return await this.dbService.findByAttribute(attr, value);
+        return this.dbService.findByAttribute(attr, value);
     }
 
     async findIncomeByDateRange(fromDate: string, toDate: string) {
-        return await this.dbService.findByDateRange(fromDate, toDate);
+        return this.dbService.findByDateRange(fromDate, toDate);
     }
 
     async findMonthYearWiseIncome(userData: UserMetaData, dateRange: {from: string, to: string}) {
-        return await this.dbService.findMonthYearWiseIncome(userData, dateRange);
+        return this.dbService.findMonthYearWiseIncome(userData, dateRange);
     }
 
     async insertIncome(doc: IIncome) {
-        return await this.dbService.insert(doc);
+        return this.dbService.insert(doc);
     }
 
     async updateIncome(_id: string, doc: IIncome) {
@@ -64,7 +64,7 @@ export class IncomeService {
             createdOn: currentIncome.get('createdOn'),
             updatedOn: new Date()
         };
-        return await this.dbService.update(docToUpdate);
+        return this.dbService.update(docToUpdate);
     }
 
     async deleteIncome(_id: string) {
@@ -72,10 +72,10 @@ export class IncomeService {
         if (!currentIncome) {
             return Promise.resolve(`No data found`);
         }
-        return await this.dbService.delete(_id);
+        return this.dbService.delete(_id);
     }
 
     async deleteAllIncome() {
-        return await this.dbService.deleteAll();
+        return this.dbService.deleteAll();
     }
 }

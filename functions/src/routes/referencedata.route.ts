@@ -55,17 +55,6 @@ referenceDataRouter.post("/", async (req: Request, res: Response) => {
   }
 });
 
-// // PUT referenceData/
-// referenceDataRouter.put("/:id", async (req: Request, res: Response) => {
-//   try {
-//     const item = req.body;
-//     const addedIncomes = await ReferenceDataService.getInstance().updateIncome(req.params.id, item);
-//     return res.status(200).send(addedIncomes);
-//   } catch (e) {
-//     return res.status(500).send(e.message);
-//   }
-// });
-
 // DELETE referenceData/:id
 referenceDataRouter.delete("/:id", async (req: Request, res: Response) => {
   try {
