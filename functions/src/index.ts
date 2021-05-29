@@ -42,7 +42,9 @@ init(authConfig);
  *  App Configuration
  */
 app.use(helmet());
-app.use(express.json());
+app.use(express.json({
+    limit: '2mb'
+}));
 
 // CORS setup
 const service_env = ConfigService.allConfigs().environment;

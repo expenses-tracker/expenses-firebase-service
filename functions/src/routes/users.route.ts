@@ -6,6 +6,7 @@ import express, { Request, Response } from "express";
 import { UsersService } from "../services/users.service";
 import { logger, LOG_LEVEL } from "../configs/global.config";
 import Auth from "core-api-lib";
+import { CommonsUtil } from "../utils/commons.util";
 
 /**
  * Router Definition
@@ -122,7 +123,8 @@ usersRouter.post("/", async (req: Request, res: Response) => {
 usersRouter.put("/:id", async (req: Request, res: Response) => {
   try {
     const item = req.body;
-    const addedUser = await UsersService.getInstance().updateUser(req.params.id, item);
+    const userData = CommonsUtil.getUserInfo(res.locals.jwtPayload);
+    const addedUser = await UsersService.getInstance().updateUser(req.params.id, item, userData);
     return res.status(200).send(addedUser);
   } catch (e) {
     return res.status(500).send(e.message);

@@ -25,6 +25,10 @@ export interface IUsers {
     lastLoggedOn?: Date;
     permissions: string[];
     preferences: IPreferences;
+    photo?: {
+        path: string,
+        data: string
+    };
     createdOn: Date;
     createdBy: string;
     updatedOn: Date;
@@ -56,6 +60,10 @@ const UsersSchema = new Schema({
     isLoggedIn: { type: Boolean, default: false },
     lastLoggedOn: { type: Schema.Types.Date, required: false },
     permissions: { type: [String] },
+    photo: { type: {
+        path: { type: String },
+        data: { type: String }
+    } },
     preferences: { type: PreferencesSchema },
     createdOn: { type: Schema.Types.Date, default: Date.now },
     createdBy: { type: String },

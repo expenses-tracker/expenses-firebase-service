@@ -3,6 +3,7 @@ import { UsersDbService } from "./users-db.service";
 import { IUsers } from "../models/users.model";
 import Auth from "core-api-lib";
 import { generateJwt } from "core-api-lib/middleware/auth.middleware";
+import { UserMetaData } from "../models/userMetaData.model";
 
 let instance: UsersService;
 
@@ -135,18 +136,20 @@ export class UsersService {
         return Promise.resolve(JSON.stringify(res));
     }
 
-    async updateUser(_id: string, doc: IUsers) {
+    async updateUser(_id: string, doc: IUsers, userMetaData: UserMetaData) {
         const currentUser = await this.dbService.findById(_id);
         if (!currentUser) {
-            return Promise.resolve(`No data found`);
+            return Promise.reject(`No data found`);
         }
+        doc.updatedOn = new Date();
+        doc.updatedBy = userMetaData.fullName;
         return this.dbService.update(doc);
     }
 
     async deleteUser(_id: string) {
         const currentUser = await this.dbService.findById(_id);
         if (!currentUser) {
-            return Promise.resolve(`No data found`);
+            return Promise.reject(`No data found`);
         }
         return this.dbService.delete(_id);
     }
