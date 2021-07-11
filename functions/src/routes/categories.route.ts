@@ -5,6 +5,8 @@ import express, { Request, Response } from "express";
 
 import { CategoryService } from "../services/categories.service";
 import { CommonsUtil } from "../utils/commons.util";
+import { ErrorHandler } from "../handlers/error.handler";
+import { Error } from "../handlers/error.model";
 
 /**
  * Router Definition
@@ -22,7 +24,7 @@ categoriesRouter.get("/", async (req: Request, res: Response) => {
     const paymentTypes = await CategoryService.getInstance().findAllCategories(userData);
     return res.status(200).send(paymentTypes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -32,7 +34,7 @@ categoriesRouter.get("/:id", async (req: Request, res: Response) => {
     const paymentType = await CategoryService.getInstance().findCategoryById(req.params.id);
     return res.status(200).send(paymentType);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -42,7 +44,7 @@ categoriesRouter.get("/:attribute/:value", async (req: Request, res: Response) =
     const paymentType = await CategoryService.getInstance().findCategoryByAttribute(req.params.attribute, req.params.value);
     return res.status(200).send(paymentType);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -53,7 +55,7 @@ categoriesRouter.post("/", async (req: Request, res: Response) => {
     const addedPaymentTypes = await CategoryService.getInstance().insertCategory(item);
     return res.status(200).send(addedPaymentTypes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -64,7 +66,7 @@ categoriesRouter.put("/:id", async (req: Request, res: Response) => {
     const addedPaymentTypes = await CategoryService.getInstance().updateCategory(req.params.id, item);
     return res.status(200).send(addedPaymentTypes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -74,7 +76,7 @@ categoriesRouter.delete("/:id", async (req: Request, res: Response) => {
     const deletedPaymentTypes = await CategoryService.getInstance().deleteCategory(req.params.id);
     return res.status(200).send(deletedPaymentTypes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -84,6 +86,6 @@ categoriesRouter.delete("/", async (req: Request, res: Response) => {
     const paymentTypes = await CategoryService.getInstance().deleteAllCategory();
     return res.status(200).send(paymentTypes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });

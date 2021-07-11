@@ -5,6 +5,8 @@ import express, { Request, Response } from "express";
 
 import { PaymentTypesService } from "../services/payment-types.service";
 import { CommonsUtil } from "../utils/commons.util";
+import { ErrorHandler } from "../handlers/error.handler";
+import { Error } from "../handlers/error.model";
 
 /**
  * Router Definition
@@ -22,7 +24,7 @@ paymentTypesRouter.get("/", async (req: Request, res: Response) => {
     const paymentTypes = await PaymentTypesService.getInstance().findAllPaymentTypes(userData);
     return res.status(200).send(paymentTypes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -32,7 +34,7 @@ paymentTypesRouter.get("/:id", async (req: Request, res: Response) => {
     const paymentType = await PaymentTypesService.getInstance().findPaymentTypeById(req.params.id);
     return res.status(200).send(paymentType);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -42,7 +44,7 @@ paymentTypesRouter.get("/:attribute/:value", async (req: Request, res: Response)
     const paymentType = await PaymentTypesService.getInstance().findPaymentTypeByAttribute(req.params.attribute, req.params.value);
     return res.status(200).send(paymentType);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -53,7 +55,7 @@ paymentTypesRouter.post("/", async (req: Request, res: Response) => {
     const addedPaymentTypes = await PaymentTypesService.getInstance().insertPaymentType(item);
     return res.status(200).send(addedPaymentTypes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -64,7 +66,7 @@ paymentTypesRouter.put("/:id", async (req: Request, res: Response) => {
     const addedPaymentTypes = await PaymentTypesService.getInstance().updatePaymentType(req.params.id, item);
     return res.status(200).send(addedPaymentTypes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -74,7 +76,7 @@ paymentTypesRouter.delete("/:id", async (req: Request, res: Response) => {
     const deletedPaymentTypes = await PaymentTypesService.getInstance().deletePaymentType(req.params.id);
     return res.status(200).send(deletedPaymentTypes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -84,6 +86,6 @@ paymentTypesRouter.delete("/", async (req: Request, res: Response) => {
     const paymentTypes = await PaymentTypesService.getInstance().deleteAllPaymentType();
     return res.status(200).send(paymentTypes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });

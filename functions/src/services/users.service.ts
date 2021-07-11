@@ -4,6 +4,8 @@ import { IUsers } from "../models/users.model";
 import Auth from "core-api-lib";
 import { generateJwt } from "core-api-lib/middleware/auth.middleware";
 import { UserMetaData } from "../models/userMetaData.model";
+import { CommonsUtil } from "../utils/commons.util";
+import { Error, ErrorType } from "../handlers/error.model";
 
 let instance: UsersService;
 
@@ -40,12 +42,11 @@ export class UsersService {
         const ifUserExists = await this.dbService.findByAttribute(`email`, email);
         if (ifUserExists.length > 0) {
             logger.log(LOG_LEVEL.warn, `User ${email} already exists!`);
-            return Promise.reject(`Username already exists`);
+            return Promise.reject(CommonsUtil.createError(ErrorType.USERNAME_ALREADY_EXISTS, `User already exists. Please use a different email address.`, 400));
         }
-        const identifierIdx = email.indexOf('@');
-        const userId = email.substring(0, identifierIdx);
+        const hashedUserId = CommonsUtil.getUUIDFromString(email);
         const userDetails: IUsers = {
-            userId: userId,
+            userId: hashedUserId,
             email: email,
             password: password,
             fullName: fullName,
@@ -87,7 +88,7 @@ export class UsersService {
         const ifUserExists = await this.dbService.findByAttribute(`email`, email);
         if (ifUserExists.length === 0) {
             logger.log(LOG_LEVEL.error, `User ${email} not found!`);
-            return Promise.reject(`User_Not_Found`);
+            return Promise.reject(this.userNotFound());
         }
         const userDetails = ifUserExists[0];
         const pwdToCompare = userDetails.password;
@@ -120,7 +121,7 @@ export class UsersService {
             };
             return Promise.resolve(JSON.stringify(resObj));
         } else {
-            return Promise.reject('Wrong_Password');
+            return Promise.reject(CommonsUtil.createError(ErrorType.WRONG_PASSWORD, `Please enter correct password to login.`, 403));
         }
     }
 
@@ -128,7 +129,7 @@ export class UsersService {
         const ifUserExists = await this.dbService.findByAttribute(`email`, email);
         if (ifUserExists.length === 0) {
             logger.log(LOG_LEVEL.error, `User ${email} not found!`);
-            return Promise.reject(`User_Not_Found`);
+            return Promise.reject(this.userNotFound());
         }
         const userDetails = ifUserExists[0];
         userDetails.isLoggedIn = false;
@@ -139,7 +140,7 @@ export class UsersService {
     async updateUser(_id: string, doc: IUsers, userMetaData: UserMetaData) {
         const currentUser = await this.dbService.findById(_id);
         if (!currentUser) {
-            return Promise.reject(`No data found`);
+            return Promise.reject(this.userNotFound());
         }
         doc.updatedOn = new Date();
         doc.updatedBy = userMetaData.fullName;
@@ -149,12 +150,16 @@ export class UsersService {
     async deleteUser(_id: string) {
         const currentUser = await this.dbService.findById(_id);
         if (!currentUser) {
-            return Promise.reject(`No data found`);
+            return Promise.reject(this.userNotFound());
         }
         return this.dbService.delete(_id);
     }
 
     async deleteAllUser() {
         return this.dbService.deleteAll();
+    }
+
+    userNotFound(): Error {
+        return CommonsUtil.createError(ErrorType.USER_NOT_FOUND, 'User is not registered. Please register with expense app to access all the features.', 404);
     }
 }

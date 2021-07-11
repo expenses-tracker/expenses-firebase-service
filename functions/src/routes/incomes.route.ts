@@ -5,6 +5,8 @@ import express, { Request, Response } from "express";
 
 import { IncomeService } from "../services/incomes.service";
 import { CommonsUtil } from "../utils/commons.util";
+import { ErrorHandler } from "../handlers/error.handler";
+import { Error } from "../handlers/error.model";
 
 /**
  * Router Definition
@@ -22,7 +24,7 @@ incomesRouter.get("/", async (req: Request, res: Response) => {
     const incomes = await IncomeService.getInstance().findAllIncomes(userData);
     return res.status(200).send(incomes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -34,7 +36,7 @@ incomesRouter.post("/monthYear", async (req: Request, res: Response) => {
     const incomes = await IncomeService.getInstance().findMonthYearWiseIncome(userData, dateRange);
     return res.status(200).send(incomes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -46,7 +48,7 @@ incomesRouter.post("/dateRange", async (req: Request, res: Response) => {
     const incomes = await IncomeService.getInstance().findIncomeByDateRange(fromDate, toDate);
     return res.status(200).send(incomes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -56,7 +58,7 @@ incomesRouter.get("/:id", async (req: Request, res: Response) => {
     const income = await IncomeService.getInstance().findIncomeById(req.params.id);
     return res.status(200).send(income);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -66,7 +68,7 @@ incomesRouter.get("/:attribute/:value", async (req: Request, res: Response) => {
     const income = await IncomeService.getInstance().findIncomeByAttribute(req.params.attribute, req.params.value);
     return res.status(200).send(income);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -77,7 +79,7 @@ incomesRouter.post("/", async (req: Request, res: Response) => {
     const addedIncomes = await IncomeService.getInstance().insertIncome(item);
     return res.status(200).send(addedIncomes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -88,7 +90,7 @@ incomesRouter.put("/:id", async (req: Request, res: Response) => {
     const addedIncomes = await IncomeService.getInstance().updateIncome(req.params.id, item);
     return res.status(200).send(addedIncomes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -98,7 +100,7 @@ incomesRouter.delete("/:id", async (req: Request, res: Response) => {
     const deletedIncomes = await IncomeService.getInstance().deleteIncome(req.params.id);
     return res.status(200).send(deletedIncomes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -108,6 +110,6 @@ incomesRouter.delete("/", async (req: Request, res: Response) => {
     const incomes = await IncomeService.getInstance().deleteAllIncome();
     return res.status(200).send(incomes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });

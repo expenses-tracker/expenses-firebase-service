@@ -4,6 +4,8 @@
 import express, { Request, Response } from "express";
 
 import { ReferenceDataService } from "../services/referencedata.service";
+import { ErrorHandler } from "../handlers/error.handler";
+import { Error } from "../handlers/error.model";
 
 /**
  * Router Definition
@@ -20,7 +22,7 @@ referenceDataRouter.get("/", async (req: Request, res: Response) => {
     const referenceData = await ReferenceDataService.getInstance().findAllReferenceData();
     return res.status(200).send(referenceData);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -30,7 +32,7 @@ referenceDataRouter.get("/:id", async (req: Request, res: Response) => {
     const income = await ReferenceDataService.getInstance().findReferenceDataById(req.params.id);
     return res.status(200).send(income);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -40,7 +42,7 @@ referenceDataRouter.get("/:attribute/:value", async (req: Request, res: Response
     const income = await ReferenceDataService.getInstance().findReferenceDataByAttribute(req.params.attribute, req.params.value);
     return res.status(200).send(income);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -51,7 +53,7 @@ referenceDataRouter.post("/", async (req: Request, res: Response) => {
     const addedIncomes = await ReferenceDataService.getInstance().insertReferenceData(item);
     return res.status(200).send(addedIncomes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -61,7 +63,7 @@ referenceDataRouter.delete("/:id", async (req: Request, res: Response) => {
     const deletedIncomes = await ReferenceDataService.getInstance().deleteReferenceData(req.params.id);
     return res.status(200).send(deletedIncomes);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });
 
@@ -71,6 +73,6 @@ referenceDataRouter.delete("/", async (req: Request, res: Response) => {
     const referenceData = await ReferenceDataService.getInstance().deleteAllReferenceData();
     return res.status(200).send(referenceData);
   } catch (e) {
-    return res.status(500).send(e.message);
+    return ErrorHandler.handleError(res, e || new Error());
   }
 });

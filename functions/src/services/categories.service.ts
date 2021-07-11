@@ -2,6 +2,7 @@ import { logger, LOG_LEVEL } from "../configs/global.config";
 import { CategoriesDbService } from "./categories-db.service";
 import { ICategory } from "../models/categories.model";
 import { UserMetaData } from "../models/userMetaData.model";
+import { CommonsUtil } from "../utils/commons.util";
 
 let instance: CategoryService;
 
@@ -37,7 +38,7 @@ export class CategoryService {
     async updateCategory(_id: string, doc: ICategory) {
         const currentCategory = await this.dbService.findById(_id);
         if (!currentCategory) {
-            return Promise.resolve(`No data found`);
+            return Promise.reject(CommonsUtil.dataNotFound());
         }
         const docToUpdate: ICategory = {
             _id: _id,
@@ -60,7 +61,7 @@ export class CategoryService {
     async deleteCategory(_id: string) {
         const currentCategory = await this.dbService.findById(_id);
         if (!currentCategory) {
-            return Promise.resolve(`No data found`);
+            return Promise.reject(CommonsUtil.dataNotFound());
         }
         return this.dbService.delete(_id);
     }

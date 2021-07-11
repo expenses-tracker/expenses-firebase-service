@@ -1,6 +1,7 @@
 import { logger, LOG_LEVEL } from "../configs/global.config";
 import { ReferenceDataDbService } from "./referencedata-db.service";
 import { IReferenceData } from "../models/referencedata.model";
+import { CommonsUtil } from "../utils/commons.util";
 
 let instance: ReferenceDataService;
 
@@ -36,7 +37,7 @@ export class ReferenceDataService {
     async deleteReferenceData(_id: string) {
         const currentReferenceData = await this.dbService.findById(_id);
         if (!currentReferenceData) {
-            return Promise.resolve(`No data found`);
+            return Promise.reject(CommonsUtil.dataNotFound());
         }
         return this.dbService.delete(_id);
     }

@@ -2,6 +2,7 @@ import { logger, LOG_LEVEL } from "../configs/global.config";
 import { ExpensesDbService } from "./expenses-db.service";
 import { IExpense } from "../models/expenses.model";
 import { UserMetaData } from "../models/userMetaData.model";
+import { CommonsUtil } from "../utils/commons.util";
 
 let instance: ExpenseService;
 
@@ -57,7 +58,7 @@ export class ExpenseService {
     async updateExpense(_id: string, doc: IExpense) {
         const currentExpense = await this.dbService.findById(_id);
         if (!currentExpense) {
-            return Promise.resolve(`No data found`);
+            return Promise.reject(CommonsUtil.dataNotFound());
         }
         const docToUpdate: IExpense = {
             _id: _id,
@@ -79,7 +80,7 @@ export class ExpenseService {
     async deleteExpense(_id: string) {
         const currentExpense = await this.dbService.findById(_id);
         if (!currentExpense) {
-            return Promise.resolve(`No data found`);
+            return Promise.reject(CommonsUtil.dataNotFound());
         }
         return this.dbService.delete(_id);
     }

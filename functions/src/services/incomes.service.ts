@@ -2,6 +2,7 @@ import { logger, LOG_LEVEL } from "../configs/global.config";
 import { IncomesDbService } from "./incomes-db.service";
 import { IIncome } from "../models/incomes.model";
 import { UserMetaData } from "../models/userMetaData.model";
+import { CommonsUtil } from "../utils/commons.util";
 
 let instance: IncomeService;
 
@@ -49,7 +50,7 @@ export class IncomeService {
     async updateIncome(_id: string, doc: IIncome) {
         const currentIncome = await this.dbService.findById(_id);
         if (!currentIncome) {
-            return Promise.resolve(`No data found`);
+            return Promise.reject(CommonsUtil.dataNotFound());
         }
         const docToUpdate: IIncome = {
             _id: _id,
@@ -70,7 +71,7 @@ export class IncomeService {
     async deleteIncome(_id: string) {
         const currentIncome = await this.dbService.findById(_id);
         if (!currentIncome) {
-            return Promise.resolve(`No data found`);
+            return Promise.reject(CommonsUtil.dataNotFound());
         }
         return this.dbService.delete(_id);
     }

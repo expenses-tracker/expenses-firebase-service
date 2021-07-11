@@ -2,6 +2,7 @@ import { logger, LOG_LEVEL } from "../configs/global.config";
 import { PaymentTypesDbService } from "./payment-types-db.service";
 import { IPaymentTypes } from "../models/payment-types.model";
 import { UserMetaData } from "../models/userMetaData.model";
+import { CommonsUtil } from "../utils/commons.util";
 
 let instance: PaymentTypesService;
 
@@ -37,7 +38,7 @@ export class PaymentTypesService {
     async updatePaymentType(_id: string, doc: IPaymentTypes) {
         const currentPaymentType = await this.dbService.findById(_id);
         if (!currentPaymentType) {
-            return Promise.resolve(`No data found`);
+            return Promise.reject(CommonsUtil.dataNotFound());
         }
         const docToUpdate: IPaymentTypes = {
             _id: _id,
@@ -60,7 +61,7 @@ export class PaymentTypesService {
     async deletePaymentType(_id: string) {
         const currentPaymentType = await this.dbService.findById(_id);
         if (!currentPaymentType) {
-            return Promise.resolve(`No data found`);
+            return Promise.reject(CommonsUtil.dataNotFound());
         }
         return this.dbService.delete(_id);
     }
