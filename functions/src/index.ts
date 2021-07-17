@@ -9,6 +9,7 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import morgan from 'morgan';
 
 import { LOG_LEVEL, logger, whiteListedUrls } from './configs/global.config';
 
@@ -27,6 +28,18 @@ dotenv.config();
 const PORT: number = 3000;
 
 const app = express();
+
+app.use(morgan((tokens, req, res) => {
+    return [
+        tokens.method(req, res),
+        tokens.url(req, res),
+        tokens.status(req, res),
+        tokens.res(req, res, 'content-length'), '-',
+        tokens['response-time'](req, res), 'ms'
+    ].join(' ')
+}, {
+    skip: function (req, res) { return req.method === 'OPTIONS' }
+}))
 
 /**
  *  Auth Configuration
@@ -57,7 +70,7 @@ const corsOptions = {
     'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
     'preflightContinue': false,
     'optionsSuccessStatus': 204
-  };
+};
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
