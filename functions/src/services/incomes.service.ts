@@ -30,12 +30,12 @@ export class IncomeService {
         return this.dbService.findById(id);
     }
 
-    async findIncomeByAttribute(attr: string, value: any) {
-        return this.dbService.findByAttribute(attr, value);
+    async findIncomeByAttribute(userData: UserMetaData, attr: string, value: any) {
+        return this.dbService.findByAttribute(userData, attr, value);
     }
 
-    async findIncomeByDateRange(fromDate: string, toDate: string) {
-        return this.dbService.findByDateRange(fromDate, toDate);
+    async findIncomeByDateRange(userData: UserMetaData, fromDate: string, toDate: string) {
+        return this.dbService.findByDateRange(userData, fromDate, toDate);
     }
 
     async findMonthYearWiseIncome(userData: UserMetaData, dateRange: {from: string, to: string}) {

@@ -43,7 +43,8 @@ incomesRouter.post("/dateRange", async (req: Request, res: Response) => {
   try {
     const fromDate = req.body.from;
     const toDate = req.body.to;
-    const incomes = await IncomeService.getInstance().findIncomeByDateRange(fromDate, toDate);
+    const userData = CommonsUtil.getUserInfo(res.locals.jwtPayload);
+    const incomes = await IncomeService.getInstance().findIncomeByDateRange(userData, fromDate, toDate);
     return res.status(200).send(incomes);
   } catch (e) {
     return res.status(500).send(e.message);
@@ -63,7 +64,8 @@ incomesRouter.get("/:id", async (req: Request, res: Response) => {
 // GET incomes/:attribute/:value
 incomesRouter.get("/:attribute/:value", async (req: Request, res: Response) => {
   try {
-    const income = await IncomeService.getInstance().findIncomeByAttribute(req.params.attribute, req.params.value);
+    const userData = CommonsUtil.getUserInfo(res.locals.jwtPayload);
+    const income = await IncomeService.getInstance().findIncomeByAttribute(userData, req.params.attribute, req.params.value);
     return res.status(200).send(income);
   } catch (e) {
     return res.status(500).send(e.message);
