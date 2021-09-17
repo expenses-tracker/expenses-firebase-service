@@ -36,12 +36,12 @@ export class IncomesDbService {
         return this.model.findById(id).exec();
     }
 
-    findByAttribute(attr: string, value: any) {
-        return this.model.find({ [attr]: value }).sort({ 'dated': -1 }).exec();
+    findByAttribute(userData: UserMetaData, attr: string, value: any) {
+        return this.model.find({ [attr]: value, createdBy: userData.fullName }).sort({ 'dated': -1 }).exec();
     }
 
-    findByDateRange(fromDate: string, toDate: string) {
-        return this.model.find({ dated: {$gte: new Date(fromDate), $lte: new Date(toDate)} }).sort({ 'dated': -1 }).exec();
+    findByDateRange(userData: UserMetaData, fromDate: string, toDate: string) {
+        return this.model.find({ dated: {$gte: new Date(fromDate), $lte: new Date(toDate)}, createdBy: userData.fullName }).sort({ 'dated': -1 }).exec();
     }
 
     findMonthYearWiseIncome(userData: UserMetaData, dateRange: {from: string, to: string}) {
